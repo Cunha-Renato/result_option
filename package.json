@@ -1,12 +1,13 @@
 {
   "name": "result_option",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Result and Option types for typescript.",
   "main": "./dist/index.ts",
   "module": "./dist/index.mts",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
     "build": "tsc",
