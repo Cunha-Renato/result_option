@@ -13,7 +13,7 @@ export class Option<T> {
 	 * @param value
 	 * @returns `Option<T>` where `Some(value)` if `value` !== null and `None` if `value` === null.
 	 */
-	static From<T>(value: T | null): Option<T> {
+	static from<T>(value: T | null): Option<T> {
 		return value === null ? Option.None() : Option.Some(value);
 	}
 
