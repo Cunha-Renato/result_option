@@ -15,7 +15,7 @@
   "scripts": {
     "build": "tsc",
     "test": "vitest",
-    "publish": "pnpm run build && pnpm publish"
+    "pub": "pnpm run build && pnpm publish"
   },
   "keywords": [
     "Result",
