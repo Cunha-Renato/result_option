@@ -1,0 +1,22 @@
+{
+  "name": "result_option",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.ts",
+  "module": "./dist/index.mts",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "publish": "pnpm run build && pnpm publish"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.32.1",
+  "dependencies": {
+    "typescript": "^6.0.2"
+  }
+}
