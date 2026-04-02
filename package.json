@@ -1,7 +1,7 @@
 {
   "name": "result_option",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Result and Option types for typescript.",
   "main": "./dist/index.ts",
   "module": "./dist/index.mts",
   "types": "./dist/index.d.ts",
@@ -10,13 +10,21 @@
   ],
   "scripts": {
     "build": "tsc",
+    "test": "vitest",
     "publish": "pnpm run build && pnpm publish"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "Result",
+    "Option",
+    "Type"
+  ],
+  "author": "Renato Cunha",
   "license": "ISC",
   "packageManager": "pnpm@10.32.1",
   "dependencies": {
     "typescript": "^6.0.2"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.2"
   }
 }
