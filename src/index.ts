@@ -747,16 +747,43 @@ export class Result<T, E> {
 	}
 }
 
-export function Some<T>(val: T): Option<T> {
-	return Option.Some(val);
+/**
+ * Helper function for `Option.Some`.
+ * @param value - The value to be `Some`.
+ * @returns Option<T> with `Some` = `value`.
+ * @example
+ * const option = Option.Some(10);
+ */
+export function Some<T>(value: T): Option<T> {
+	return Option.Some(value);
 }
+/**
+ * Helper function for `Option.None`.
+ * @returns Option<T> with `None`.
+ * @example
+ * const option = Option.None();
+ */
 export function None<T>(): Option<T> {
 	return Option.None();
 }
 
-export function Ok<T, E>(val: T): Result<T, E> {
-	return Result.Ok(val);
+/**
+ * Helper function for `Result.Ok`.
+ * @param value - The value to be `Ok`.
+ * @returns `Result<T, E>` with `Ok` = `value`.
+ * @example
+ * const result = Result.Ok(10);
+ */
+export function Ok<T, E>(value: T): Result<T, E> {
+	return Result.Ok(value);
 }
-export function Err<T, E>(err: E): Result<T, E> {
-	return Result.Err(err);
+/**
+ * Helper function for `Result.Err`.
+ * @param error - The error to be `Err`.
+ * @returns `Result<T, E>` with `Err` = `error`.
+ * @example
+ * const result = Result.Err("something went wrong");
+ */
+export function Err<T, E>(error: E): Result<T, E> {
+	return Result.Err(error);
 }
