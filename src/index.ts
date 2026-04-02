@@ -346,7 +346,7 @@ export class Option<T> {
 	 * });
 	 */
 	match<R>(cases: { Some: (value: T) => R; None: () => R }): R {
-    return this.#val === null ? cases.None() : cases.Some(this.#val);
+		return this.#val === null ? cases.None() : cases.Some(this.#val);
 	}
 }
 
@@ -745,4 +745,18 @@ export class Result<T, E> {
 		// biome-ignore lint/style/noNonNullAssertion: <Should not happen ever.>
 		return this.#val === null ? cases.Err(this.#err!) : cases.Ok(this.#val);
 	}
+}
+
+export function Some<T>(val: T): Option<T> {
+	return Option.Some(val);
+}
+export function None<T>(): Option<T> {
+	return Option.None();
+}
+
+export function Ok<T, E>(val: T): Result<T, E> {
+	return Result.Ok(val);
+}
+export function Err<T, E>(err: E): Result<T, E> {
+	return Result.Err(err);
 }
