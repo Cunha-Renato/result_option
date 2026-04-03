@@ -1,8 +1,8 @@
 {
   "name": "result_option",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Result and Option types for typescript.",
-  "main": "./dist/index.ts",
+  "main": "./dist/index.js",
   "module": "./dist/index.mts",
   "types": "./dist/index.d.ts",
   "repository": "https://github.com/Cunha-Renato/result_option",
