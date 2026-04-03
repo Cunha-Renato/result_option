@@ -203,6 +203,16 @@ export class Option<T> {
 	}
 
 	/**
+	 * Same as `Option.map()` but async.
+	 */
+	async map_async<U>(f: (val: T) => Promise<U>): Promise<Option<U>> {
+		return this.match({
+			Some: async (val) => Option.Some(await f(val)),
+			None: async () => Option.None(),
+		});
+	}
+
+	/**
 	 *
 	 * @param dft default value.
 	 * @param f lambda.
@@ -273,6 +283,16 @@ export class Option<T> {
 		return this.match({
 			Some: (val) => Result.Ok(val),
 			None: () => Result.Err(err()),
+		});
+	}
+
+	/**
+	 * Same as `Option.ok_or_else()` but async.
+	 */
+	async ok_or_else_async<E>(err: () => Promise<E>): Promise<Result<T, E>> {
+		return this.match({
+			Some: async (val) => Result.Ok<T, E>(val),
+			None: async () => Result.Err(await err()),
 		});
 	}
 
@@ -556,6 +576,16 @@ export class Result<T, E> {
 			Err: (e) => Result.Err(e),
 		});
 	}
+  
+	/**
+	 * Same as `Result.map()` but async.
+	 */
+	async map_async<U>(f: (val: T) => Promise<U>): Promise<Result<U, E>> {
+		return this.match({
+			Ok: async (t) => Result.Ok(await f(t)),
+			Err: async (e) => Result.Err(e),
+		});
+	}
 
 	/**
 	 * @param dft - default value.
@@ -607,6 +637,16 @@ export class Result<T, E> {
 		return this.match({
 			Ok: (val) => Result.Ok(val),
 			Err: (e) => Result.Err(op(e)),
+		});
+	}
+
+	/**
+	 * Same as `Result.map_err()` but async.
+	 */
+  async map_err_async<F>(op: (err: E) => Promise<F>): Promise<Result<T, F>> {
+		return this.match({
+			Ok: async (val) => Result.Ok(val),
+			Err: async (e) => Result.Err(await op(e)),
 		});
 	}
 
