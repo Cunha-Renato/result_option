@@ -74,6 +74,16 @@ export class Option<T> {
 	}
 
 	/**
+	 * Same as `Option.is_some_and()` but async.
+	 */
+	async is_some_and_async(f: (value: T) => Promise<boolean>): Promise<boolean> {
+		return this.match({
+			Some: f,
+			None: async () => false,
+		});
+	}
+
+	/**
 	 *
 	 * @returns `true` if the `Option` is `None` or the value inside of it matches the predicate.
 	 * @example
@@ -87,6 +97,16 @@ export class Option<T> {
 		return this.match({
 			Some: f,
 			None: () => true,
+		});
+	}
+
+	/**
+	 * Same as `Option.is_none_or()` but async.
+	 */
+	async is_none_or_async(f: (value: T) => Promise<boolean>): Promise<boolean> {
+		return this.match({
+			Some: f,
+			None: async () => true,
 		});
 	}
 
@@ -297,6 +317,18 @@ export class Option<T> {
 	}
 
 	/**
+	 * Same as `Option.and_then()` but async.
+	 */
+	async and_then_async<U>(
+		f: (val: T) => Promise<Option<U>>,
+	): Promise<Option<U>> {
+		return this.match({
+			Some: f,
+			None: async () => Option.None(),
+		});
+	}
+
+	/**
 	 *
 	 * @param optb value.
 	 * @returns `this` if `Some`, otherwise `optb`.
@@ -332,6 +364,16 @@ export class Option<T> {
 	or_else(f: () => Option<T>): Option<T> {
 		return this.match({
 			Some: (_) => this,
+			None: f,
+		});
+	}
+
+	/**
+	 * Same as `Option.or_else()` but async.
+	 */
+	async or_else_async(f: () => Promise<Option<T>>): Promise<Option<T>> {
+		return this.match({
+			Some: async (_) => this,
 			None: f,
 		});
 	}
@@ -431,6 +473,16 @@ export class Result<T, E> {
 	}
 
 	/**
+	 * Same as `Result.is_ok_and()` but async.
+	 */
+	async is_ok_and_async(f: (value: T) => Promise<boolean>): Promise<boolean> {
+		return this.match({
+			Ok: f,
+			Err: async (_) => false,
+		});
+	}
+
+	/**
 	 * @returns `true` if the `Result` is `Err` and the error matches the predicate.
 	 * @example
 	 * const x = Result.Err("error");
@@ -442,6 +494,16 @@ export class Result<T, E> {
 	is_err_and(f: (error: E) => boolean): boolean {
 		return this.match({
 			Ok: (_) => false,
+			Err: f,
+		});
+	}
+
+	/**
+	 * Same as `Result.is_ok_and()` but async.
+	 */
+	async is_err_and_async(f: (error: E) => Promise<boolean>): Promise<boolean> {
+		return this.match({
+			Ok: async (_) => false,
 			Err: f,
 		});
 	}
@@ -697,6 +759,18 @@ export class Result<T, E> {
 	}
 
 	/**
+	 * Same as `Result.and_then()` but async.
+	 */
+	async and_then_async<U>(
+		op: (val: T) => Promise<Result<U, E>>,
+	): Promise<Result<U, E>> {
+		return this.match({
+			Ok: op,
+			Err: async (e) => Result.Err<U, E>(e),
+		});
+	}
+
+	/**
 	 * @param res - value.
 	 * @returns `this` if `Ok`, otherwise returns `res`.
 	 * @example
@@ -728,6 +802,18 @@ export class Result<T, E> {
 	or_else<F>(op: (err: E) => Result<T, F>): Result<T, F> {
 		return this.match({
 			Ok: (t) => Result.Ok(t),
+			Err: op,
+		});
+	}
+
+	/**
+	 * Same as `Result.or_else()` but async.
+	 */
+	async or_else_async<F>(
+		op: (err: E) => Promise<Result<T, F>>,
+	): Promise<Result<T, F>> {
+		return this.match({
+			Ok: async (t) => Result.Ok<T, F>(t),
 			Err: op,
 		});
 	}
